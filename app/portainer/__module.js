@@ -498,6 +498,28 @@ angular.module('portainer.app', [])
     }
   };
 
+  var reservations = {
+    name: 'portainer.reservations',
+    url: '/reservations',
+    views: {
+      'content@': {
+        templateUrl: './views/reservations/reservations.html',
+        controller: 'ReservationsController'
+      }
+    }
+  };
+
+  var reserve = {
+    name: 'portainer.reservations.reserve',
+    url: '/:id',
+    views: {
+      'content@': {
+        templateUrl: './views/reservations/edit/reserve.html',
+        controller: 'ReserveController'
+      }
+    }
+  };
+
   $stateRegistryProvider.register(root);
   $stateRegistryProvider.register(portainer);
   $stateRegistryProvider.register(about);
@@ -540,4 +562,6 @@ angular.module('portainer.app', [])
   $stateRegistryProvider.register(templates);
   $stateRegistryProvider.register(template);
   $stateRegistryProvider.register(templateCreation);
+  $stateRegistryProvider.register(reservations);
+  $stateRegistryProvider.register(reserve);
 }]);
