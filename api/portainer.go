@@ -455,6 +455,19 @@ type (
 		AccessLevel ResourceAccessLevel `json:"AccessLevel"`
 	}
 
+	// ReservationID represents a reservation identifier
+	ReservationID int
+
+	// Reservation represents a reservation of cpu and memory
+	Reservation struct {
+		ID 			ReservationID	`json:"Id"`
+		Name 		string 			`json:"Name"`
+		Cpu			int				`json:"Cpu"`
+		Memory		int				`json:"Memory"`
+		CreatedAt	int64			`json:"CreatedAt"`
+		Revoked		bool			`json:"Revoked"`
+	}
+
 	// TagID represents a tag identifier
 	TagID int
 
@@ -721,6 +734,14 @@ type (
 		UpdateSchedule(ID ScheduleID, schedule *Schedule) error
 		DeleteSchedule(ID ScheduleID) error
 		GetNextIdentifier() int
+	}
+
+	// RservationService represents a service for managin reservation data
+	ReservationService interface {
+		Reservations() ([]Reservation, error)
+		CreateReservation(reservation *Reservation) error
+		UpdateReservation(ID ReservationID, reservation *Reservation) error
+		DeleteReservations(ID ReservationID) error
 	}
 
 	// TagService represents a service for managing tag data
@@ -1167,6 +1188,10 @@ const (
 	OperationPortainerRegistryUpdate          Authorization = "PortainerRegistryUpdate"
 	OperationPortainerRegistryUpdateAccess    Authorization = "PortainerRegistryUpdateAccess"
 	OperationPortainerRegistryDelete          Authorization = "PortainerRegistryDelete"
+	OperationPortainerReservationList         Authorization = "PortainerReservationList"
+	OperationPortainerReservationCreate       Authorization = "PortainerReservationCreate"
+	OperationPortainerReservationDelete       Authorization = "PortainerReservationDelete"
+	OperationPortainerReservationUpdate       Authorization = "PortainerReservationUpdate"
 	OperationPortainerResourceControlCreate   Authorization = "PortainerResourceControlCreate"
 	OperationPortainerResourceControlUpdate   Authorization = "PortainerResourceControlUpdate"
 	OperationPortainerResourceControlDelete   Authorization = "PortainerResourceControlDelete"
