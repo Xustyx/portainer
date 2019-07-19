@@ -739,6 +739,7 @@ type (
 	// RservationService represents a service for managin reservation data
 	ReservationService interface {
 		Reservations() ([]Reservation, error)
+		Reservation(ID ReservationID) (*Reservation, error)
 		CreateReservation(reservation *Reservation) error
 		UpdateReservation(ID ReservationID, reservation *Reservation) error
 		DeleteReservations(ID ReservationID) error

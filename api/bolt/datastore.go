@@ -18,6 +18,7 @@ import (
 	"github.com/portainer/portainer/api/bolt/schedule"
 	"github.com/portainer/portainer/api/bolt/settings"
 	"github.com/portainer/portainer/api/bolt/stack"
+	"github.com/portainer/portainer/api/bolt/reservation"
 	"github.com/portainer/portainer/api/bolt/tag"
 	"github.com/portainer/portainer/api/bolt/team"
 	"github.com/portainer/portainer/api/bolt/teammembership"
@@ -47,6 +48,7 @@ type Store struct {
 	ResourceControlService *resourcecontrol.Service
 	SettingsService        *settings.Service
 	StackService           *stack.Service
+	ReservationService     *reservation.Service
 	TagService             *tag.Service
 	TeamMembershipService  *teammembership.Service
 	TeamService            *team.Service
@@ -195,6 +197,12 @@ func (store *Store) initServices() error {
 		return err
 	}
 	store.StackService = stackService
+
+	reservationService, err := reservation.NewService(store.db)
+	if err != nil {
+		return err
+	}
+	store.reservationService = reservationService
 
 	tagService, err := tag.NewService(store.db)
 	if err != nil {
