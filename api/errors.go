@@ -61,6 +61,11 @@ const (
 	ErrStackNotExternal                = Error("Not an external stack")
 )
 
+// Reservation errors
+const (
+	ErrReservationAlreadyExists = Error("A reservation already exists with this name")
+)
+
 // Tag errors
 const (
 	ErrTagAlreadyExists = Error("A tag already exists with this name")
