@@ -7,12 +7,12 @@ import (
 	"github.com/portainer/libhttp/response"
 )
 
-// GET request on /api/tags
-func (handler *Handler) tagList(w http.ResponseWriter, r *http.Request) *httperror.HandlerError {
-	tags, err := handler.ReservationService.Reservations()
+// GET request on /api/reservations
+func (handler *Handler) reservationList(w http.ResponseWriter, r *http.Request) *httperror.HandlerError {
+	reservations, err := handler.ReservationService.Reservations()
 	if err != nil {
 		return &httperror.HandlerError{http.StatusInternalServerError, "Unable to retrieve reservations from the database", err}
 	}
 
-	return response.JSON(w, tags)
+	return response.JSON(w, reservations)
 }

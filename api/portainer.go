@@ -742,7 +742,7 @@ type (
 		Reservation(ID ReservationID) (*Reservation, error)
 		CreateReservation(reservation *Reservation) error
 		UpdateReservation(ID ReservationID, reservation *Reservation) error
-		DeleteReservations(ID ReservationID) error
+		DeleteReservation(ID ReservationID) error
 	}
 
 	// TagService represents a service for managing tag data

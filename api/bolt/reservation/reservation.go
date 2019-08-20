@@ -85,7 +85,7 @@ func (service *Service) CreateReservation(reservation *portainer.Reservation) er
 			return err
 		}
 
-		return bucket.Put(internal.Itob(int(tag.ID)), data)
+		return bucket.Put(internal.Itob(int(reservation.ID)), data)
 	})
 }
 
