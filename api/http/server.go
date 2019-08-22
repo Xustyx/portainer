@@ -17,6 +17,7 @@ import (
 	"github.com/portainer/portainer/api/http/handler/file"
 	"github.com/portainer/portainer/api/http/handler/motd"
 	"github.com/portainer/portainer/api/http/handler/registries"
+	"github.com/portainer/portainer/api/http/handler/reservations"
 	"github.com/portainer/portainer/api/http/handler/resourcecontrols"
 	"github.com/portainer/portainer/api/http/handler/schedules"
 	"github.com/portainer/portainer/api/http/handler/settings"
@@ -65,6 +66,7 @@ type Server struct {
 	SettingsService        portainer.SettingsService
 	StackService           portainer.StackService
 	SwarmStackManager      portainer.SwarmStackManager
+	ReservationService	   portainer.ReservationService
 	TagService             portainer.TagService
 	TeamService            portainer.TeamService
 	TeamMembershipService  portainer.TeamMembershipService
@@ -187,6 +189,9 @@ func (server *Server) Start() error {
 	stackHandler.RegistryService = server.RegistryService
 	stackHandler.DockerHubService = server.DockerHubService
 
+	var reservationHandler = reservations.NewHandler(requestBouncer)
+	reservationHandler.ReservationService = server.ReservationService
+
 	var tagHandler = tags.NewHandler(requestBouncer)
 	tagHandler.TagService = server.TagService
 
@@ -237,6 +242,7 @@ func (server *Server) Start() error {
 		SettingsHandler:        settingsHandler,
 		StatusHandler:          statusHandler,
 		StackHandler:           stackHandler,
+		ReservationHandler:     reservationHandler,
 		TagHandler:             tagHandler,
 		TeamHandler:            teamHandler,
 		TeamMembershipHandler:  teamMembershipHandler,
